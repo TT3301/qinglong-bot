@@ -5,6 +5,7 @@ RUN corepack enable
 
 COPY package.json .
 COPY pnpm-lock.yaml .
+COPY prepare.js .
 RUN pnpm install
 
 COPY tsconfig.json .
@@ -23,7 +24,7 @@ RUN corepack enable
 
 COPY --from=build /app/package.json .
 COPY --from=build /app/pnpm-lock.yaml .
-RUN pnpm install
+RUN pnpm install --ignore-scripts
 
 COPY --from=build /app/dist ./dist
 
